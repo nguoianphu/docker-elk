@@ -7,9 +7,10 @@ set -e
 # Run as user "elk"
 if [[ "$1" == "" ]]; then
     echo "Starting elasticsearch"
-    exec gosu elk elasticsearch
+    exec gosu elk elasticsearch &
+    # sleep 20
     echo "Starting logstash"
-    exec gosu elk logstash
+    exec gosu elk logstash &
     echo "Starting kibana"
     exec gosu elk kibana
 else
