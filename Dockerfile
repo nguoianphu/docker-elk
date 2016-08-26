@@ -100,7 +100,7 @@ RUN set -x \
  && mkdir ${KIBANA_HOME} \
  && chown -R elk:elk ${KIBANA_HOME} \
  && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz \
- && tar xzf kibana-${KIBANA_VERSION}-linux-x64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
+ && tar xzf kibana-${KIBANA_VERSION}-linux-x64.tar.gz -C ${KIBANA_HOME} --strip-components=2 \
  && rm -f kibana-${KIBANA_VERSION}-linux-x64.tar.gz \
  && set +x
 
@@ -120,6 +120,9 @@ VOLUME ${ES_HOME}/data
 
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh \
- && echo $PATH
+ && ls -la ${ES_HOME} \
+ && ls -la ${LOGSTASH_HOME} \
+ && ls -la ${KIBANA_HOME}
+ 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 CMD [ "" ]
