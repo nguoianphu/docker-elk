@@ -7,7 +7,7 @@ set -e
 # Run as user "elk"
 if [[ "$1" == "" ]]; then
     echo "Starting elasticsearch"
-    exec gosu elk elasticsearch &
+    exec gosu elk elasticsearch -Des.network.host=0.0.0.0 &
     sleep 20
     echo "Starting logstash"
     exec gosu elk logstash -f /opt/logstash/config &
