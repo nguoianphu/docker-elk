@@ -5,7 +5,7 @@ set -e
 # If user don't provide any command
 # start the ELK server
 # Run as user "elk"
-if [[ "$1" == -* ]]; then
+if [[ "$1" == "" ]]; then
     set -- gosu elk elasticsearch
     sleep 20
     set -- gosu elk logstash
