@@ -76,7 +76,7 @@ RUN set -ex \
       ${ES_HOME}/config/scripts \
       ; do \
       mkdir -p "$path"; \
-    done
+    done \
  && chown -R elk:elk ${ES_HOME}
 
 
