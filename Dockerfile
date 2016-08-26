@@ -67,7 +67,7 @@ RUN set -x \
  && mkdir ${ES_HOME} \
  && addgroup --gid 1100 elk \
  && adduser --disabled-password --disabled-login --gecos '' --uid 1100 --gid 1100 elasticsearch \
- && chown -R elasticsearch:elasticsearch ${ES_HOME} \
+ && chown -R elasticsearch:elk ${ES_HOME} \
  && curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
  && tar xvf elasticsearch-${ES_VERSION}.tar.gz  -C ${ES_HOME} --strip-components=2 \
  && rm -rf elasticsearch-${ES_VERSION}.tar.gz
@@ -83,7 +83,7 @@ ENV LOGSTASH_HOME /opt/logstash
 RUN set -x \
  && mkdir ${LOGSTASH_HOME} \
  && adduser --disabled-password --disabled-login --gecos '' --uid 1100 --gid 1100 logstash \
- && chown -R logstash:logstash ${LOGSTASH_HOME} \
+ && chown -R logstash:elk ${LOGSTASH_HOME} \
  && curl -L -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
  && tar xzf logstash-${LOGSTASH_VERSION}.tar.gz -C ${LOGSTASH_HOME} --strip-components=2 \
  && rm -f logstash-${LOGSTASH_VERSION}.tar.gz
@@ -98,7 +98,7 @@ ENV KIBANA_HOME /opt/kibana
 RUN set -x \
  && mkdir ${KIBANA_HOME} \
  && adduser --disabled-password --disabled-login --gecos '' --uid 1100 --gid 1100 kibana \
- && chown -R kibana:kibana ${KIBANA_HOME} \
+ && chown -R kibana:elk ${KIBANA_HOME} \
  && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz \
  && tar xzf kibana-${KIBANA_VERSION}-linux-x64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
  && rm -f kibana-${KIBANA_VERSION}-linux-x64.tar.gz
