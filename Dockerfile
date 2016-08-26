@@ -70,7 +70,8 @@ RUN set -x \
  && chown -R elk:elk ${ES_HOME} \
  && curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
  && tar xvf elasticsearch-${ES_VERSION}.tar.gz  -C ${ES_HOME} --strip-components=2 \
- && rm -rf elasticsearch-${ES_VERSION}.tar.gz
+ && rm -rf elasticsearch-${ES_VERSION}.tar.gz \
+ && set +x
 
 
 ####################################################
@@ -85,7 +86,8 @@ RUN set -x \
  && chown -R elk:elk ${LOGSTASH_HOME} \
  && curl -L -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
  && tar xzf logstash-${LOGSTASH_VERSION}.tar.gz -C ${LOGSTASH_HOME} --strip-components=2 \
- && rm -f logstash-${LOGSTASH_VERSION}.tar.gz
+ && rm -f logstash-${LOGSTASH_VERSION}.tar.gz \
+ && set +x
 
 
 ####################################################
@@ -99,7 +101,8 @@ RUN set -x \
  && chown -R elk:elk ${KIBANA_HOME} \
  && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz \
  && tar xzf kibana-${KIBANA_VERSION}-linux-x64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
- && rm -f kibana-${KIBANA_VERSION}-linux-x64.tar.gz
+ && rm -f kibana-${KIBANA_VERSION}-linux-x64.tar.gz \
+ && set +x
 
 ###############################################################################
 #                                   START
@@ -116,5 +119,7 @@ EXPOSE 9200 9300 5044 5601
 VOLUME ${ES_HOME}/data
 
 COPY docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh \
+ && echo $PATH
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
+CMD [ "" ]
