@@ -66,8 +66,8 @@ ENV ES_HOME /opt/elasticsearch
 RUN set -x \
  && mkdir ${ES_HOME} \
  && addgroup --gid 1100 elk \
- && adduser --disabled-password --disabled-login --gecos '' --uid 1100 --gid 1100 elasticsearch \
- && chown -R elasticsearch:elk ${ES_HOME} \
+ && adduser --disabled-password --disabled-login --gecos '' --uid 1100 --gid 1100 elk \
+ && chown -R elk:elk ${ES_HOME} \
  && curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
  && tar xvf elasticsearch-${ES_VERSION}.tar.gz  -C ${ES_HOME} --strip-components=2 \
  && rm -rf elasticsearch-${ES_VERSION}.tar.gz
@@ -82,8 +82,7 @@ ENV LOGSTASH_HOME /opt/logstash
 
 RUN set -x \
  && mkdir ${LOGSTASH_HOME} \
- && adduser --disabled-password --disabled-login --gecos '' --uid 1100 --gid 1100 logstash \
- && chown -R logstash:elk ${LOGSTASH_HOME} \
+ && chown -R elk:elk ${LOGSTASH_HOME} \
  && curl -L -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
  && tar xzf logstash-${LOGSTASH_VERSION}.tar.gz -C ${LOGSTASH_HOME} --strip-components=2 \
  && rm -f logstash-${LOGSTASH_VERSION}.tar.gz
@@ -97,8 +96,7 @@ ENV KIBANA_HOME /opt/kibana
 
 RUN set -x \
  && mkdir ${KIBANA_HOME} \
- && adduser --disabled-password --disabled-login --gecos '' --uid 1100 --gid 1100 kibana \
- && chown -R kibana:elk ${KIBANA_HOME} \
+ && chown -R elk:elk ${KIBANA_HOME} \
  && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz \
  && tar xzf kibana-${KIBANA_VERSION}-linux-x64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
  && rm -f kibana-${KIBANA_VERSION}-linux-x64.tar.gz
@@ -112,7 +110,8 @@ ENV PATH ${JAVA_HOME}/bin:${ES_HOME}/bin:${LOGSTASH_HOME}/bin:${KIBANA_HOME}/bin
 # 9200 Elasticsearch HTTP JSON interface
 # 9300 Elasticsearch TCP transport port
 # 5044 Logstash Beats interface, receives logs from Beats such as Filebeat, Packetbeat
-EXPOSE 9200 9300 5044
+# 5601 Kibana web interface
+EXPOSE 9200 9300 5044 5601
 
 VOLUME ${ES_HOME}/data
 
