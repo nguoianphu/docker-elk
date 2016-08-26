@@ -41,7 +41,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre
 ### https://github.com/tianon/gosu/releases
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN set -x \
+RUN set -ex \
  && apt-get update -qq \
  && apt-get install -qqy --no-install-recommends ca-certificates curl \
  && rm -rf /var/lib/apt/lists/* \
@@ -53,8 +53,7 @@ RUN set -x \
  && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
  && chmod +x /usr/local/bin/gosu \
  && gosu nobody true \
- && apt-get clean \
- && set +x
+ && apt-get clean
 
 
 ####################################################
@@ -63,15 +62,22 @@ RUN set -x \
 
 ENV ES_HOME /opt/elasticsearch
 
-RUN set -x \
+RUN set -ex \
  && mkdir ${ES_HOME} \
  && addgroup --gid 1100 elk \
  && adduser --disabled-password --disabled-login --gecos '' --uid 1100 --gid 1100 elk \
  && curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
  && tar xzf elasticsearch-${ES_VERSION}.tar.gz  -C ${ES_HOME} --strip-components=1 \
  && rm -rf elasticsearch-${ES_VERSION}.tar.gz \
- && chown -R elk:elk ${ES_HOME} \
- && set +x
+ && for path in \
+      ${ES_HOME}/data \
+      ${ES_HOME}/logs \
+      ${ES_HOME}/config \
+      ${ES_HOME}/config/scripts \
+      ; do \
+      mkdir -p "$path"; \
+    done
+ && chown -R elk:elk ${ES_HOME}
 
 
 ####################################################
@@ -81,13 +87,12 @@ RUN set -x \
 
 ENV LOGSTASH_HOME /opt/logstash
 
-RUN set -x \
+RUN set -ex \
  && mkdir ${LOGSTASH_HOME} \
  && curl -L -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
  && tar xzf logstash-${LOGSTASH_VERSION}.tar.gz -C ${LOGSTASH_HOME} --strip-components=1 \
  && rm -f logstash-${LOGSTASH_VERSION}.tar.gz \
- && chown -R elk:elk ${LOGSTASH_HOME} \ 
- && set +x
+ && chown -R elk:elk ${LOGSTASH_HOME}
 
 
 ####################################################
@@ -96,13 +101,12 @@ RUN set -x \
 
 ENV KIBANA_HOME /opt/kibana
 
-RUN set -x \
+RUN set -ex \
  && mkdir ${KIBANA_HOME} \
  && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz \
  && tar xzf kibana-${KIBANA_VERSION}-linux-x64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
  && rm -f kibana-${KIBANA_VERSION}-linux-x64.tar.gz \
- && chown -R elk:elk ${KIBANA_HOME} \ 
- && set +x
+ && chown -R elk:elk ${KIBANA_HOME}
 
 ###############################################################################
 #                                   START
