@@ -2,8 +2,9 @@ sudo: required
 services:
   - docker
 
-install::
+script:
   - docker build -t elk .
   - docker run --name elk -d elk
+  - docker ps -a
   - docker logs -f elk
 
