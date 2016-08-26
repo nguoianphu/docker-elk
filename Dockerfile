@@ -94,6 +94,7 @@ RUN set -ex \
  && rm -f logstash-${LOGSTASH_VERSION}.tar.gz \
  && chown -R elk:elk ${LOGSTASH_HOME}
 
+ COPY logstash.conf ${LOGSTASH_HOME}/config/
 
 ####################################################
 #########              Kibana            ###########
