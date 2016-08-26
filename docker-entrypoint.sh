@@ -7,12 +7,12 @@ set -e
 # Run as user "elk"
 if [[ "$1" == "" ]]; then
     echo "Starting elasticsearch"
-    gosu elk elasticsearch
+    exec gosu elk elasticsearch
     sleep 20
     echo "Starting logstash"
-    gosu elk logstash
+    exec gosu elk logstash
     echo "Starting kibana"
-    gosu elk kibana
+    exec gosu elk kibana
 else
     # Else allow the user to run arbitrarily commands like bash
     exec "$@"
