@@ -69,7 +69,7 @@ RUN set -x \
  && adduser --disabled-password --disabled-login --gecos '' --uid 1100 --gid 1100 elk \
  && chown -R elk:elk ${ES_HOME} \
  && curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
- && tar xvf elasticsearch-${ES_VERSION}.tar.gz  -C ${ES_HOME} --strip-components=1 \
+ && tar xzf elasticsearch-${ES_VERSION}.tar.gz  -C ${ES_HOME} --strip-components=1 \
  && rm -rf elasticsearch-${ES_VERSION}.tar.gz \
  && set +x
 
@@ -119,10 +119,7 @@ EXPOSE 9200 9300 5044 5601
 VOLUME ${ES_HOME}/data
 
 COPY docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh \
- && ls -la ${ES_HOME} \
- && ls -la ${LOGSTASH_HOME} \
- && ls -la ${KIBANA_HOME}
+RUN chmod +x /docker-entrypoint.sh
  
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 CMD [""]
