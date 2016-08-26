@@ -8,9 +8,9 @@ set -e
 if [[ "$1" == "" ]]; then
     echo "Starting elasticsearch"
     exec gosu elk elasticsearch &
-    # sleep 20
+    sleep 20
     echo "Starting logstash"
-    exec gosu elk logstash -e 'input { stdin { } } output { elasticsearch {} }' &
+    exec gosu elk logstash -e 'input { tcp { port => "${TCP_PORT:5000}" } } output { elasticsearch {} }' &
     echo "Starting kibana"
     exec gosu elk kibana
 else
