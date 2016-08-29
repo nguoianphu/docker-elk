@@ -6,6 +6,6 @@ script:
   - docker build -t elk .
   - docker run --name elk -d elk
   - docker ps -a
-  - docker logs -f elk
+  # - docker logs -f elk
   - docker exec -it elk /bin/bash && ps -ef
 
