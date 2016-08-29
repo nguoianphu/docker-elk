@@ -7,5 +7,5 @@ script:
   - docker run --name elk -d elk
   - docker ps -a
   # - docker logs -f elk
-  - docker exec -it elk /bin/bash && ps -ef
+  - docker exec -it elk "ps -ef"
 
