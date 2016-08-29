@@ -8,28 +8,18 @@ ELK (Elasticsearch Logstash Kibana) docker image
 - Logstash 2.3.4
 - Kibana 4.5.4
 
-# Build and run on LOCALHOST
+# Build and run
     
     docker build -t "elk" .
     docker run -d --name my-elk elk
     
-or just run
+## or just run
     
     docker run -d --name my-elk nguoianphu/docker-elk
 
-ports (localhost only)
+ports
 
     # 9200 Elasticsearch HTTP JSON interface
     # 9300 Elasticsearch TCP transport port
     # 5044 Logstash Beats interface, receives logs from Beats such as Filebeat, Packetbeat
     # 5601 Kibana web interface
-    
-# Run with public IP address
-
-## Kibana
-
-Create a Kibana configuration file like mylocal/kibana.yml
-
-     
-
-     docker run -d --name my-elk -v mylocal/kibana.yml:/opt/kibana/config/kibana.yml elk
