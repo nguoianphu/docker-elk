@@ -7,5 +7,6 @@ script:
   - docker run --name elk -d elk
   - docker ps -a
   # - docker logs -f elk
-  - docker exec -it elk "ps -ef"
+  - docker exec -it elk ps -ef
+  - curl http://localhost:9200/_nodes/process?pretty
 
