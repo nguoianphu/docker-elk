@@ -11,7 +11,7 @@
 FROM java:8-jre
 # OS is Debian 64bit
 
-MAINTAINER Tuan Vo <vhtuan@tma.com.vn>
+MAINTAINER Tuan Vo <vohungtuan@gmail.com>
 # Reference Sebastien Pujadas http://pujadas.net
 
 ENV ES_VERSION 2.3.5
