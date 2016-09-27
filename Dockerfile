@@ -14,9 +14,9 @@ FROM java:8-jre
 MAINTAINER Tuan Vo <vohungtuan@gmail.com>
 # Reference Sebastien Pujadas http://pujadas.net
 
-ENV ES_VERSION 2.3.5
-ENV LOGSTASH_VERSION 2.3.4
-ENV KIBANA_VERSION 4.5.4
+ENV ES_VERSION 2.4.0
+ENV LOGSTASH_VERSION 2.4.0
+ENV KIBANA_VERSION 4.6.0
 
 ENV GOSU_VERSION 1.9
 
