@@ -2,11 +2,11 @@
 
 ELK (Elasticsearch Logstash Kibana) docker image
 
-[![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=master)](https://travis-ci.org/nguoianphu/docker-elk)
+[![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=master)](https://travis-ci.org/nguoianphu/docker-elk) [![](https://images.microbadger.com/badges/image/nguoianphu/docker-elk.svg)](http://microbadger.com/images/nguoianphu/docker-elk "Get your own image badge on microbadger.com")
 
 - Elasticsearch 2.4.0
 - Logstash 2.4.0
-- Kibana 4.6.0
+- Kibana 4.6.1
 
 # Build and run
     
