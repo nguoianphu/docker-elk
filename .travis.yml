@@ -5,11 +5,12 @@ services:
 script:
   - docker build -t elk .
   - docker images
-  - docker run --name elk -d elk
+  - docker run --name elk -d -p 9200:9200 -p 5601:5601 -p 5044:5044 elk
   - docker ps -a
   # - docker logs -f elk
   # - echo $MY_PASSWORD
   - sleep 20
   - docker exec -it elk ps -ef
   - docker exec -it elk curl http://localhost:9200/_nodes/process?pretty
+  - curl http://localhost:9200/_nodes/process?pretty
 
