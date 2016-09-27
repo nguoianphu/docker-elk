@@ -16,7 +16,7 @@ MAINTAINER Tuan Vo <vohungtuan@gmail.com>
 
 ENV ES_VERSION 2.4.0
 ENV LOGSTASH_VERSION 2.4.0
-ENV KIBANA_VERSION 4.6.0
+ENV KIBANA_VERSION 4.6.1
 
 ENV GOSU_VERSION 1.9
 
@@ -104,9 +104,9 @@ ENV KIBANA_HOME /opt/kibana
 
 RUN set -ex \
  && mkdir ${KIBANA_HOME} \
- && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz \
- && tar xzf kibana-${KIBANA_VERSION}-linux-x64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
- && rm -f kibana-${KIBANA_VERSION}-linux-x64.tar.gz \
+ && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
+ && tar xzf kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
+ && rm -f kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && chown -R elk:elk ${KIBANA_HOME}
 
 ###############################################################################
