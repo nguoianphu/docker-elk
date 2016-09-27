@@ -1,12 +1,12 @@
 # Docker ELK
 
-ELK (Elasticsearch Logstash Kibana) docker image 
+ELK (Elasticsearch Logstash Kibana) docker image
 
 [![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=master)](https://travis-ci.org/nguoianphu/docker-elk)
 
-- Elasticsearch 2.3.5
-- Logstash 2.3.4
-- Kibana 4.5.4
+- Elasticsearch 2.4.0
+- Logstash 2.4.0
+- Kibana 4.6.0
 
 # Build and run
     
