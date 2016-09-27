@@ -7,15 +7,16 @@ ELK (Elasticsearch Logstash Kibana) docker image
 - Elasticsearch 2.4.0
 - Logstash 2.4.0
 - Kibana 4.6.1
+- OS is Debian 64bit
 
 # Build and run
     
     docker build -t "elk" .
-    docker run -d --name my-elk elk
+    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk elk
     
 ## or just run
     
-    docker run -d --name my-elk nguoianphu/docker-elk
+    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk
 
 ports
 
