@@ -7,7 +7,7 @@ script:
   - docker images
   - docker run --name elk -d -p 9200:9200 -p 5601:5601 -p 5044:5044 elk
   - docker ps -a
-  # - docker logs -f elk
+  - docker logs -f elk
   # - echo $MY_PASSWORD
   - sleep 20
   - docker exec -it elk ps -ef
