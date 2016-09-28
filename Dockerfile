@@ -75,7 +75,7 @@ RUN set -x \
 
 ENV ES_HOME /opt/elasticsearch
 
-RUN set -ex \
+RUN set -x \
  && mkdir -p ${ES_HOME} \
  && addgroup elk \
  && adduser -D -S elk -s /bin/bash -h ${ES_HOME} -g "ELK service user" -G elk \ 
@@ -100,7 +100,7 @@ RUN set -ex \
 
 ENV LOGSTASH_HOME /opt/logstash
 
-RUN set -ex \
+RUN set -x \
  && mkdir -p ${LOGSTASH_HOME} \
  && /usr/bin/curl -L -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
  && tar xzf logstash-${LOGSTASH_VERSION}.tar.gz -C ${LOGSTASH_HOME} --strip-components=1 \
@@ -115,7 +115,7 @@ RUN set -ex \
 
 ENV KIBANA_HOME /opt/kibana
 
-RUN set -ex \
+RUN set -x \
  && mkdir -p ${KIBANA_HOME} \
  && /usr/bin/curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && tar xzf kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
