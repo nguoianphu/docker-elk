@@ -74,8 +74,8 @@ ENV ES_HOME /opt/elasticsearch
 
 RUN set -ex \
  && mkdir -p ${ES_HOME} \
- && addgroup --gid 1100 elk \
- && adduser --disabled-password --disabled-login --gecos '' --uid 1100 --gid 1100 elk \
+ && addgroup elk \
+ && adduser -D -S elk -s /bin/bash -h ${ES_HOME} -g "ELK service user" -G elk \ 
  && curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
  && tar xzf elasticsearch-${ES_VERSION}.tar.gz  -C ${ES_HOME} --strip-components=1 \
  && rm -rf elasticsearch-${ES_VERSION}.tar.gz \
