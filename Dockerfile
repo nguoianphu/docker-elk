@@ -65,7 +65,8 @@ RUN set -x \
     && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true \
-    && apk del .gosu-deps
+    && apk del .gosu-deps \
+    rm -rf /var/cache/apk/*
 
 
 ####################################################
@@ -78,7 +79,7 @@ RUN set -ex \
  && mkdir -p ${ES_HOME} \
  && addgroup elk \
  && adduser -D -S elk -s /bin/bash -h ${ES_HOME} -g "ELK service user" -G elk \ 
- && curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
+ && /usr/bin/curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
  && tar xzf elasticsearch-${ES_VERSION}.tar.gz  -C ${ES_HOME} --strip-components=1 \
  && rm -rf elasticsearch-${ES_VERSION}.tar.gz \
  && for path in \
@@ -101,7 +102,7 @@ ENV LOGSTASH_HOME /opt/logstash
 
 RUN set -ex \
  && mkdir -p ${LOGSTASH_HOME} \
- && curl -L -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
+ && /usr/bin/curl -L -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
  && tar xzf logstash-${LOGSTASH_VERSION}.tar.gz -C ${LOGSTASH_HOME} --strip-components=1 \
  && rm -f logstash-${LOGSTASH_VERSION}.tar.gz \
  && chown -R elk:elk ${LOGSTASH_HOME}
@@ -116,7 +117,7 @@ ENV KIBANA_HOME /opt/kibana
 
 RUN set -ex \
  && mkdir -p ${KIBANA_HOME} \
- && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
+ && /usr/bin/curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && tar xzf kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
  && rm -f kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && chown -R elk:elk ${KIBANA_HOME}
