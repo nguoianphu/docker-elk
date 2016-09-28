@@ -54,8 +54,6 @@ RUN set -x \
         dpkg \
         gnupg \
         openssl \
-        bash \
-        --update curl \
     && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
     && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" \
     && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" \
@@ -76,11 +74,14 @@ RUN set -x \
 ENV ES_HOME /opt/elasticsearch
 
 RUN set -x \
+ && apk add --update bash \
+        curl \
+ && rm -rf /var/cache/apk/* \        
  && mkdir -p ${ES_HOME} \
  && addgroup elk \
  && adduser -D -S elk -s /bin/bash -h ${ES_HOME} -g "ELK service user" -G elk \
  && ls -la /usr/bin/cu* \
- && /usr/bin/curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
+ && curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
  && tar xzf elasticsearch-${ES_VERSION}.tar.gz  -C ${ES_HOME} --strip-components=1 \
  && rm -rf elasticsearch-${ES_VERSION}.tar.gz \
  && for path in \
