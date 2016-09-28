@@ -76,6 +76,7 @@ ENV ES_HOME /opt/elasticsearch
 RUN set -x \
  && apk add --update bash \
         curl \
+        tar \
  && rm -rf /var/cache/apk/* \        
  && mkdir -p ${ES_HOME} \
  && addgroup elk \
