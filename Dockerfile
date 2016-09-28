@@ -81,7 +81,6 @@ RUN set -x \
  && mkdir -p ${ES_HOME} \
  && addgroup elk \
  && adduser -D -S elk -s /bin/bash -h ${ES_HOME} -g "ELK service user" -G elk \
- && ls -la /usr/bin/cu* \
  && curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
  && tar xzf elasticsearch-${ES_VERSION}.tar.gz  -C ${ES_HOME} --strip-components=1 \
  && rm -rf elasticsearch-${ES_VERSION}.tar.gz \
@@ -105,7 +104,7 @@ ENV LOGSTASH_HOME /opt/logstash
 
 RUN set -x \
  && mkdir -p ${LOGSTASH_HOME} \
- && /usr/bin/curl -L -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
+ && curl -L -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
  && tar xzf logstash-${LOGSTASH_VERSION}.tar.gz -C ${LOGSTASH_HOME} --strip-components=1 \
  && rm -f logstash-${LOGSTASH_VERSION}.tar.gz \
  && chown -R elk:elk ${LOGSTASH_HOME}
@@ -119,17 +118,36 @@ RUN set -x \
 ENV KIBANA_HOME /opt/kibana
 
 RUN set -x \
+ && uname -a \
  && mkdir -p ${KIBANA_HOME} \
- && /usr/bin/curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
+ && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && tar xzf kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
  && rm -f kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && chown -R elk:elk ${KIBANA_HOME}
+ 
+# elasticsearch.url: 'http://localhost:9200'
+# ensure the default configuration is useful when using --link
+
+# server.host: "0.0.0.0"
+# ensure we can access kibana outside the host
+
+# server.port: 5601
+# ensure we can access kibana outside the host with port 5610
+
+RUN	sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://localhost:9200'!" ${KIBANA_HOME}/config/kibana.yml \
+  && grep -q 'localhost:9200' ${KIBANA_HOME}/config/kibana.yml \
+  && sed -ri "s!^(\#\s*)?(server\.host:).*!\2 \"0\.0\.0\.0\"!" ${KIBANA_HOME}/config/kibana.yml \
+  && grep -q '0.0.0.0' ${KIBANA_HOME}/config/kibana.yml \ 
+  && sed -ri "s!^(\#\s*)?(server\.port:).*!\2 5601!" ${KIBANA_HOME}/config/kibana.yml \
+  && grep -q '5601' ${KIBANA_HOME}/config/kibana.yml
+
 
 ###############################################################################
 #                                   START
 ###############################################################################
 
 ENV PATH ${JAVA_HOME}/bin:${ES_HOME}/bin:${LOGSTASH_HOME}/bin:${KIBANA_HOME}/bin:$PATH
+
 
 # 9200 Elasticsearch HTTP JSON interface
 # 9300 Elasticsearch TCP transport port
