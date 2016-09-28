@@ -77,6 +77,7 @@ RUN set -x \
  && apk add --update bash \
         curl \
         tar \
+        nodejs \
  && rm -rf /var/cache/apk/* \        
  && mkdir -p ${ES_HOME} \
  && addgroup elk \
