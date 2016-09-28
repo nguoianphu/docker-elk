@@ -12,6 +12,11 @@ if [[ "$1" == "" ]]; then
     echo "Starting logstash"
     exec gosu elk logstash -f /opt/logstash/config &
     echo "Starting kibana"
+    cd ${KIBANA_HOME}
+    echo "Debug Kibana"
+    ls
+    which node
+    npm install
     cd ${KIBANA_HOME}/bin
     exec gosu elk kibana
 else
