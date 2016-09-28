@@ -8,7 +8,12 @@
 # or
 # docker run -p 80:5601 -p 9200:9200 -p 5044:5044 -p 5000:5000 -it --name elk <repo-user>/elk
 
-FROM java:8-jre
+#FROM java:8-jre
+# This image is officially deprecated in favor of the openjdk image,
+# and will receive no further updates after 2016-12-31 (Dec 31, 2016)
+
+# Change to OpenJDK
+FROM openjdk:8-jre
 # OS is Debian 64bit
 
 MAINTAINER Tuan Vo <vohungtuan@gmail.com>
