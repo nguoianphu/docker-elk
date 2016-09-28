@@ -73,7 +73,7 @@ RUN set -x \
 ENV ES_HOME /opt/elasticsearch
 
 RUN set -ex \
- && mkdir ${ES_HOME} \
+ && mkdir -p ${ES_HOME} \
  && addgroup --gid 1100 elk \
  && adduser --disabled-password --disabled-login --gecos '' --uid 1100 --gid 1100 elk \
  && curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
@@ -98,7 +98,7 @@ RUN set -ex \
 ENV LOGSTASH_HOME /opt/logstash
 
 RUN set -ex \
- && mkdir ${LOGSTASH_HOME} \
+ && mkdir -p ${LOGSTASH_HOME} \
  && curl -L -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
  && tar xzf logstash-${LOGSTASH_VERSION}.tar.gz -C ${LOGSTASH_HOME} --strip-components=1 \
  && rm -f logstash-${LOGSTASH_VERSION}.tar.gz \
@@ -113,7 +113,7 @@ RUN set -ex \
 ENV KIBANA_HOME /opt/kibana
 
 RUN set -ex \
- && mkdir ${KIBANA_HOME} \
+ && mkdir -p ${KIBANA_HOME} \
  && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && tar xzf kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
  && rm -f kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
