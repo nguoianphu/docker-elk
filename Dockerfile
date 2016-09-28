@@ -120,7 +120,7 @@ ENV KIBANA_HOME /opt/kibana
 RUN set -x \
  && mkdir -p ${KIBANA_HOME} \
  && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
- && tar zfv kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
+ && tar xzf kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
  && rm -f kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && chown -R elk:elk ${KIBANA_HOME} \
  && uname -a \
