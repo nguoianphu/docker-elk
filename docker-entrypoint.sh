@@ -12,6 +12,7 @@ if [[ "$1" == "" ]]; then
     echo "Starting logstash"
     exec gosu elk logstash -f /opt/logstash/config &
     echo "Starting kibana"
+    cd ${KIBANA_HOME}/bin
     exec gosu elk kibana
 else
     # Else allow the user to run arbitrarily commands like bash
