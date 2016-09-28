@@ -78,6 +78,7 @@ RUN set -x \
         curl \
         tar \
         nodejs \
+        git \
  && rm -rf /var/cache/apk/* \        
  && mkdir -p ${ES_HOME} \
  && addgroup elk \
