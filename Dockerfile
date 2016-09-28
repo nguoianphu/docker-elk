@@ -24,6 +24,7 @@ ENV LOGSTASH_VERSION 2.4.0
 ENV KIBANA_VERSION 4.6.1
 
 ENV GOSU_VERSION 1.9
+ENV TINI_VERSION v0.10.0
 
 ####################################################
 ########               Java              ###########
@@ -40,7 +41,6 @@ ENV GOSU_VERSION 1.9
 #                                INSTALLATION
 ###############################################################################
 
-### install prerequisites (cURL, gosu)
 
 ####################################################
 #########              GoSU              ###########
@@ -65,7 +65,26 @@ RUN set -x \
     && gosu nobody true \
     && apk del .gosu-deps \
     rm -rf /var/cache/apk/*
+ 
+ ####################################################
+#########              Tini              ###########
+####################################################
 
+ # grab tini for signal processing and zombie killing
+ # https://github.com/krallin/tini
+
+RUN set -x \
+	&& wget -O /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini" \
+	&& wget -O /usr/local/bin/tini.asc "https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini.asc" \
+	&& export GNUPGHOME="$(mktemp -d)" \
+	&& gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 6380DC428747F6C393FEACA59A84159D7001A4E5 \
+	&& gpg --batch --verify /usr/local/bin/tini.asc /usr/local/bin/tini \
+	&& rm -r "$GNUPGHOME" /usr/local/bin/tini.asc \
+	&& chmod +x /usr/local/bin/tini \
+	&& tini -h
+    
+# RUN apk add --update tini
+# Tini is now available at /sbin/tini
 
 ####################################################
 #########              Elasticsearch     ###########
@@ -77,8 +96,7 @@ RUN set -x \
  && apk add --update bash \
         curl \
         tar \
-        nodejs \
-        git \
+ #        nodejs \
  && rm -rf /var/cache/apk/* \        
  && mkdir -p ${ES_HOME} \
  && addgroup elk \
@@ -125,10 +143,10 @@ RUN set -x \
  && tar xzf kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
  && rm -f kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && chown -R elk:elk ${KIBANA_HOME} \
- && uname -a \
- && ls -ls ${KIBANA_HOME}/node/bin/
+ # && uname -a \
+ # && ls -ls ${KIBANA_HOME}/node/bin/
  
-# elasticsearch.url: 'http://localhost:9200'
+# elasticsearch.url: 'http://elasticsearch:9200'
 # ensure the default configuration is useful when using --link
 
 # server.host: "0.0.0.0"
@@ -137,8 +155,9 @@ RUN set -x \
 # server.port: 5601
 # ensure we can access kibana outside the host with port 5610
 
-RUN	sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://localhost:9200'!" ${KIBANA_HOME}/config/kibana.yml \
-  && grep -q 'localhost:9200' ${KIBANA_HOME}/config/kibana.yml \
+RUN set -x \
+  # && sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://localhost:9200'!" ${KIBANA_HOME}/config/kibana.yml \
+  # && grep -q 'localhost:9200' ${KIBANA_HOME}/config/kibana.yml \
   && sed -ri "s!^(\#\s*)?(server\.host:).*!\2 \"0\.0\.0\.0\"!" ${KIBANA_HOME}/config/kibana.yml \
   && grep -q '0.0.0.0' ${KIBANA_HOME}/config/kibana.yml \ 
   && sed -ri "s!^(\#\s*)?(server\.port:).*!\2 5601!" ${KIBANA_HOME}/config/kibana.yml \
