@@ -89,10 +89,10 @@ RUN set -x \
    # && apk del .tini-deps \
    # && rm -rf /var/cache/apk/*
 
-RUN set -x \
-   && apk add --update tini \
-   && rm -rf /var/cache/apk/* \
-   && tini -h   
+# RUN set -x \
+   # && apk add --update tini \
+   # && rm -rf /var/cache/apk/* \
+   # && tini -h   
 # Tini is now available at /sbin/tini
 
 ####################################################
@@ -105,7 +105,7 @@ RUN set -x \
  && apk add --update bash \
         curl \
         tar \
- #        nodejs \
+        nodejs \
  && rm -rf /var/cache/apk/* \        
  && mkdir -p ${ES_HOME} \
  && addgroup elk \
