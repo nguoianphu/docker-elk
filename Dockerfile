@@ -141,6 +141,7 @@ RUN	sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://localhost:9200'!" ${K
   && sed -ri "s!^(\#\s*)?(server\.port:).*!\2 5601!" ${KIBANA_HOME}/config/kibana.yml \
   && grep -q '5601' ${KIBANA_HOME}/config/kibana.yml
 
+WORKDIR ${KIBANA_HOME}
 
 ###############################################################################
 #                                   START
