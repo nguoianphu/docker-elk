@@ -118,12 +118,13 @@ RUN set -x \
 ENV KIBANA_HOME /opt/kibana
 
 RUN set -x \
- && uname -a \
  && mkdir -p ${KIBANA_HOME} \
  && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && tar xzf kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
  && rm -f kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
- && chown -R elk:elk ${KIBANA_HOME}
+ && chown -R elk:elk ${KIBANA_HOME} \
+ && uname -a \
+ && file ${KIBANA_HOME}/node/bin/node
  
 # elasticsearch.url: 'http://localhost:9200'
 # ensure the default configuration is useful when using --link
@@ -141,7 +142,7 @@ RUN	sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://localhost:9200'!" ${K
   && sed -ri "s!^(\#\s*)?(server\.port:).*!\2 5601!" ${KIBANA_HOME}/config/kibana.yml \
   && grep -q '5601' ${KIBANA_HOME}/config/kibana.yml
 
-WORKDIR ${KIBANA_HOME}
+# WORKDIR ${KIBANA_HOME}
 
 ###############################################################################
 #                                   START
