@@ -14,7 +14,7 @@ if [[ "$1" == "" ]]; then
     echo "Starting kibana"
     #cd ${KIBANA_HOME}
     #exec gosu elk node ./src/cli
-    set -- gosu elk tini -- "kibana"
+    exec gosu elk tini -- kibana
     # exec gosu elk ${KIBANA_HOME}/bin/kibana
 else
     # Else allow the user to run arbitrarily commands like bash
