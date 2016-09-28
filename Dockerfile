@@ -124,7 +124,8 @@ RUN set -x \
  && rm -f kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && chown -R elk:elk ${KIBANA_HOME} \
  && uname -a \
- && ls -LR ${KIBANA_HOME}
+ && ls ${KIBANA_HOME} \
+ && ls ${KIBANA_HOME}/node/bin
  
 # elasticsearch.url: 'http://localhost:9200'
 # ensure the default configuration is useful when using --link
