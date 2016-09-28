@@ -13,8 +13,8 @@
 # and will receive no further updates after 2016-12-31 (Dec 31, 2016)
 
 # Change to OpenJDK
-FROM openjdk:8-jre
-# OS is Debian 64bit
+FROM openjdk:8-jre-alpine
+# OS is Alpine 64bit
 
 MAINTAINER Tuan Vo <vohungtuan@gmail.com>
 # Reference Sebastien Pujadas http://pujadas.net
@@ -30,7 +30,11 @@ ENV GOSU_VERSION 1.9
 ####################################################
 # OpenJDK - Java 8
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre
+# They are defined in the base image openjdk:8-jre-alpine
+# ENV JAVA_VERSION 8u92
+# ENV JAVA_ALPINE_VERSION 8.92.14-r1
+# ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk/jre
+# ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
 ###############################################################################
 #                                INSTALLATION
@@ -45,20 +49,21 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre
 ### install gosu for easy step-down from root
 ### https://github.com/tianon/gosu/releases
 
-ARG DEBIAN_FRONTEND=noninteractive
-RUN set -ex \
- && apt-get update -qq \
- && apt-get install -qqy --no-install-recommends ca-certificates curl \
- && rm -rf /var/lib/apt/lists/* \
- && curl -L -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
- && curl -L -o /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
- && export GNUPGHOME="$(mktemp -d)" \
- && gpg --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
- && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
- && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
- && chmod +x /usr/local/bin/gosu \
- && gosu nobody true \
- && apt-get clean
+RUN set -x \
+    && apk add --no-cache --virtual .gosu-deps \
+        dpkg \
+        gnupg \
+        openssl \
+    && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
+    && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" \
+    && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" \
+    && export GNUPGHOME="$(mktemp -d)" \
+    && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+    && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+    && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
+    && chmod +x /usr/local/bin/gosu \
+    && gosu nobody true \
+    && apk del .gosu-deps
 
 
 ####################################################
