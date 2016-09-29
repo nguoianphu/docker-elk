@@ -7,9 +7,13 @@ script:
   - docker images
   - docker run --name elk -d -p 9200:9200 -p 5601:5601 -p 5044:5044 elk
   - docker ps -a
-  # - docker logs -f elk
-  - sleep 20
+  - sleep 20  
+  - docker logs elk | grep elasticsearch
+  - docker logs elk | grep logstash
+  - docker logs elk | grep kibana  
   - docker exec -it elk ps -ef
-  - docker exec -it elk curl http://localhost:9200/_nodes/process?pretty
+  - echo "Checking Elasticsearch"
   - curl http://localhost:9200/_nodes/process?pretty
+  - echo "Checking Kibana"
+  - curl http://localhost:5601
 
