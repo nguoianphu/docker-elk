@@ -15,4 +15,4 @@ script:
   - echo "Checking Elasticsearch"
   - curl http://localhost:9200/_nodes/process?pretty
   - echo "Checking Kibana"
-- curl http://localhost:5601/
+  - curl http://localhost:5601/
