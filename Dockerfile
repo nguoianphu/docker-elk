@@ -19,7 +19,7 @@ FROM openjdk:8-jre
 MAINTAINER Tuan Vo <vohungtuan@gmail.com>
 # Reference Sebastien Pujadas http://pujadas.net
 
-ENV ES_VERSION 2.4.0
+ENV ES_VERSION 2.4.1
 ENV LOGSTASH_VERSION 2.4.0
 ENV KIBANA_VERSION 4.6.1
 
