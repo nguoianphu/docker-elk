@@ -14,6 +14,7 @@ script:
   - docker exec -it elk ps -ef
   - echo "Checking Elasticsearch"
   - curl http://localhost:9200/_nodes/process?pretty
+  - curl http://localhost:9200/_search?pretty
   - echo "Checking Kibana"
   - curl http://localhost:5601/
 
