@@ -6,8 +6,8 @@ script:
   - docker build -t elk .
   - docker images
   - docker run --name elk -d -p 9200:9200 -p 5601:5601 -p 5044:5044 elk
+  - sleep 120  
   - docker ps -a
-  - sleep 20  
   - docker logs elk | grep elasticsearch
   - docker logs elk | grep logstash
   - docker logs elk | grep kibana  
@@ -15,5 +15,4 @@ script:
   - echo "Checking Elasticsearch"
   - curl http://localhost:9200/_nodes/process?pretty
   - echo "Checking Kibana"
-  - curl http://localhost:5601
-
+- curl http://localhost:5601/
