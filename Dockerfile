@@ -32,8 +32,8 @@ ENV GOSU_VERSION 1.9
 
 # ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre
 RUN ls ${JAVA_HOME}/bin \
- && ${JAVA_HOME}/bin/java version \
- && java version
+ && ${JAVA_HOME}/bin/java -version \
+ && java -version
 
 ###############################################################################
 #                                INSTALLATION
