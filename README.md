@@ -1,8 +1,8 @@
 # Docker ELK
 
-ELK (Elasticsearch Logstash Kibana) docker image
+ELK (Elasticsearch Logstash Kibana) docker image. OS is Debian 64bit
 
-[![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=master)](https://travis-ci.org/nguoianphu/docker-elk) [![](https://images.microbadger.com/badges/image/nguoianphu/docker-elk.svg)](http://microbadger.com/images/nguoianphu/docker-elk "Get your own image badge on microbadger.com")
+[![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=debian)](https://travis-ci.org/nguoianphu/docker-elk) [![](https://images.microbadger.com/badges/image/nguoianphu/docker-elk:debian.svg)](http://microbadger.com/images/nguoianphu/docker-elk "Get your own image badge on microbadger.com")
 
 - Elasticsearch 2.4.1
 - Logstash 2.4.0
@@ -16,7 +16,7 @@ ELK (Elasticsearch Logstash Kibana) docker image
     
 ## or just run
     
-    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk
+    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk:debian
 
 ports
 
