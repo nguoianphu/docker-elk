@@ -2,7 +2,7 @@
 
 ELK (Elasticsearch Logstash Kibana) docker image. Alpine OS.
 
-[![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=alpine)](https://travis-ci.org/nguoianphu/docker-elk) [![Image size](https://images.microbadger.com/badges/image/nguoianphu/docker-elk:alpine.svg)](https://images.microbadger.com/badges/image/nguoianphu/docker-elk)
+[![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=master)](https://travis-ci.org/nguoianphu/docker-elk) [![Image size](https://images.microbadger.com/badges/image/nguoianphu/docker-elk.svg)](https://images.microbadger.com/badges/image/nguoianphu/docker-elk)
 
 - Elasticsearch 2.4.0
 - Logstash 2.4.0
@@ -16,7 +16,7 @@ ELK (Elasticsearch Logstash Kibana) docker image. Alpine OS.
     
 ## or just run
     
-    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk:alpine
+    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk
 
 ports
 
