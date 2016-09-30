@@ -3,11 +3,14 @@ services:
   - docker
 
 script:
+  - echo "Build local iamge"
   - docker build -t elk .
   - docker images
+  - echo "Run local iamge"  
   - docker run --name elk -d -p 9200:9200 -p 5601:5601 -p 5044:5044 elk
   - docker ps -a
-  - sleep 60  
+  - echo "Wait Elasticsearch to start up"    
+  - sleep 120
   - docker logs elk | grep elasticsearch
   - docker logs elk | grep logstash
   - docker logs elk | grep kibana  
@@ -17,4 +20,18 @@ script:
   - curl http://localhost:9200/_search?pretty
   - echo "Checking Kibana"
   - curl http://localhost:5601/
-
+  - docker stop elk
+  - echo "Testing public image on Docker Hub"
+  - docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name nguoianphu-elk nguoianphu/docker-elk
+  - docker ps -a
+  - sleep 120  
+  - docker logs elk | grep elasticsearch
+  - docker logs elk | grep logstash
+  - docker logs elk | grep kibana  
+  - docker exec -it elk ps -ef
+  - echo "Checking Elasticsearch"
+  - curl http://localhost:9200/_nodes/process?pretty
+  - curl http://localhost:9200/_search?pretty
+  - echo "Checking Kibana"
+  - curl http://localhost:5601/
+  - docker stop elk
