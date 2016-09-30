@@ -13,7 +13,8 @@
 # and will receive no further updates after 2016-12-31 (Dec 31, 2016)
 
 # Change to OpenJDK
-FROM openjdk:8-jre
+# FROM openjdk:8-jre
+FROM openjdk:8-jdk
 # OS is Debian 64bit
 
 MAINTAINER Tuan Vo <vohungtuan@gmail.com>
@@ -31,8 +32,9 @@ ENV GOSU_VERSION 1.9
 # OpenJDK - Java 8
 
 # ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre
+# ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+
 RUN ls ${JAVA_HOME}/bin \
- && ${JAVA_HOME}/bin/java -version \
  && java -version
 
 ###############################################################################
