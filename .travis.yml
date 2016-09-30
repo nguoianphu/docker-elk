@@ -3,10 +3,10 @@ services:
   - docker
 
 script:
-  - echo "Build local iamge"
+  - echo "Build local image"
   - docker build -t elk .
   - docker images
-  - echo "Run local iamge"  
+  - echo "Run local image"  
   - docker run --name elk -d -p 9200:9200 -p 5601:5601 -p 5044:5044 elk
   - docker ps -a
   - echo "Wait Elasticsearch to start up"    
@@ -17,6 +17,7 @@ script:
   - docker exec -it elk ps -ef
   - echo "Checking Elasticsearch"
   - curl http://localhost:9200/_nodes/process?pretty
+  - curl http://localhost:9200/_cluster/health?pretty
   - curl http://localhost:9200/_search?pretty
   - echo "Checking Kibana"
   - curl http://localhost:5601/
@@ -31,6 +32,7 @@ script:
   - docker exec -it elk ps -ef
   - echo "Checking Elasticsearch"
   - curl http://localhost:9200/_nodes/process?pretty
+  - curl http://localhost:9200/_cluster/health?pretty  
   - curl http://localhost:9200/_search?pretty
   - echo "Checking Kibana"
   - curl http://localhost:5601/
