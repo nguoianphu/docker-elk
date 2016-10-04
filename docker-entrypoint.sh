@@ -7,10 +7,14 @@ set -e
 # Run as user "elk"
 if [[ "$1" == "" ]]; then
     echo "Starting elasticsearch"
-    exec gosu elk elasticsearch -Des.network.host=0.0.0.0 &
-    sleep 20
+    #exec gosu elk elasticsearch -Des.network.host=0.0.0.0 &
+    exec gosu elk elasticsearch -p /opt/elasticsearch/elasticsearch.pid &
+    # kill `cat /opt/elasticsearch/elasticsearch.pid`
+    sleep 60
     echo "Starting logstash"
     exec gosu elk logstash -f /opt/logstash/config &
+    # exec gosu elk logstash -f /opt/logstash/config &
+    # kill `ps ux | grep logstash | grep java | grep agent | awk '{ print $2}'`
     echo "Starting kibana"
 
     cd ${KIBANA_HOME}
