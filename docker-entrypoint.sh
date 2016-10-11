@@ -8,11 +8,12 @@ set -e
 if [[ "$1" == "" ]]; then
     echo "Starting elasticsearch"
     #exec gosu elk elasticsearch -Des.network.host=0.0.0.0 &
-    exec gosu elk elasticsearch -d -p /opt/elasticsearch/elasticsearch.pid -Ees.network.host=0.0.0.0
+    # exec gosu elk elasticsearch -d -p /opt/elasticsearch/elasticsearch.pid -Ees.network.host=0.0.0.0
+    exec gosu elk elasticsearch -d -p elasticsearch.pid
     # kill `cat /opt/elasticsearch/elasticsearch.pid`
     sleep 60
-    echo "Starting logstash"
-    exec gosu elk logstash -f /opt/logstash/config &
+    # echo "Starting logstash"
+    # exec gosu elk logstash -f /opt/logstash/config &
     # exec gosu elk logstash -f /opt/logstash/config &
     # kill `ps ux | grep logstash | grep java | grep agent | awk '{ print $2}'`
     echo "Starting kibana"
