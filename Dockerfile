@@ -1,4 +1,4 @@
-# Dockerfile for ELK stack
+# Dockerfile for ELK stack 5.x
 
 # Build with:
 # docker build -t <repo-user>/elk .
@@ -19,9 +19,9 @@ FROM openjdk:8-jre-alpine
 MAINTAINER Tuan Vo <vohungtuan@gmail.com>
 # Reference Sebastien Pujadas http://pujadas.net
 
-ENV ES_VERSION 2.4.1
-ENV LOGSTASH_VERSION 2.4.0
-ENV KIBANA_VERSION 4.6.1
+ENV ES_VERSION 5.0.0-rc1
+ENV LOGSTASH_VERSION 5.0.0-rc1
+ENV KIBANA_VERSION 5.0.0-rc1
 
 ENV GOSU_VERSION 1.9
 ENV TINI_VERSION v0.10.0
@@ -110,7 +110,7 @@ RUN set -x \
  && mkdir -p ${ES_HOME} \
  && addgroup elk \
  && adduser -D -S elk -s /bin/bash -h ${ES_HOME} -g "ELK service user" -G elk \
- && curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz \
+ && curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES_VERSION}.tar.gz \
  && tar xzf elasticsearch-${ES_VERSION}.tar.gz  -C ${ES_HOME} --strip-components=1 \
  && rm -rf elasticsearch-${ES_VERSION}.tar.gz \
  && for path in \
@@ -133,7 +133,7 @@ ENV LOGSTASH_HOME /opt/logstash
 
 RUN set -x \
  && mkdir -p ${LOGSTASH_HOME} \
- && curl -L -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
+ && curl -L -O https://artifacts.elastic.co/downloads/logstash/logstash-${LOGSTASH_VERSION}.tar.gz \
  && tar xzf logstash-${LOGSTASH_VERSION}.tar.gz -C ${LOGSTASH_HOME} --strip-components=1 \
  && rm -f logstash-${LOGSTASH_VERSION}.tar.gz \
  && chown -R elk:elk ${LOGSTASH_HOME}
@@ -148,7 +148,7 @@ ENV KIBANA_HOME /opt/kibana
 
 RUN set -x \
  && mkdir -p ${KIBANA_HOME} \
- && curl -L -O https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
+ && curl -L -O https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && tar xzf kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
  && rm -f kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
  && chown -R elk:elk ${KIBANA_HOME}
