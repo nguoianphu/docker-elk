@@ -7,9 +7,9 @@ set -e
 # Run as user "elk"
 if [[ "$1" == "" ]]; then
     echo "Starting elasticsearch"
-    #exec gosu elk elasticsearch -Des.network.host=0.0.0.0 &
+	# Can not allocate more then 2GB memory for Java HEAP
+	export ES_JAVA_OPTS="-Xms1g -Xmx2g"
     exec gosu elk elasticsearch -d -p /opt/elasticsearch/elasticsearch.pid -Ees.network.host=0.0.0.0
-    # exec gosu elk elasticsearch &
     # kill `cat /opt/elasticsearch/elasticsearch.pid`
     sleep 60
     # echo "Starting logstash"
