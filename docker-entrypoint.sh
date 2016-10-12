@@ -21,8 +21,8 @@ if [[ "$1" == "" ]]; then
     exec gosu elk elasticsearch -p /opt/elasticsearch/elasticsearch.pid -Edefault.network.host=0.0.0.0 &
     # kill `cat /opt/elasticsearch/elasticsearch.pid`
     sleep 60
-    # echo "Starting logstash"
-    # exec gosu elk logstash -f /opt/logstash/config &
+    echo "Starting logstash"
+    exec gosu elk logstash -f /opt/logstash/config &
     # exec gosu elk logstash -f /opt/logstash/config &
     # kill `ps ux | grep logstash | grep java | grep agent | awk '{ print $2}'`
     echo "Starting kibana"
