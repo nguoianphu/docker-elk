@@ -8,7 +8,7 @@ set -e
 if [[ "$1" == "" ]]; then
     echo "Starting elasticsearch"
 	# Can not allocate more then 2GB memory for Java HEAP
-	export ES_JAVA_OPTS="-Xms2048m -Xmx2048m"
+	export ES_JAVA_OPTS="-Xms1g -Xmx1g"
     exec gosu elk elasticsearch -Edefault.network.host=0.0.0.0 &
     # exec gosu elk elasticsearch -d -p /opt/elasticsearch/elasticsearch.pid -Ees.network.host=0.0.0.0
     # kill `cat /opt/elasticsearch/elasticsearch.pid`
