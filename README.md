@@ -12,11 +12,11 @@ ELK (Elasticsearch Logstash Kibana) 5.x Docker image. Alpine OS 3.x.
 # Build and run
     
     docker build -t "elk" .
-    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk elk
+    docker run --privileged -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk elk
     
 ## or just run
     
-    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk:5
+    docker run --privileged -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk:5
 
 ports
 
