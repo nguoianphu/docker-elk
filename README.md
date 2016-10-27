@@ -10,29 +10,35 @@ ELK (Elasticsearch Logstash Kibana) 5.x Docker image. Alpine OS 3.x.
 - OS is Alpine 3.4 64bit
 
 
-# Docker host virtual memory
+## Docker host virtual memory
 [https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html](https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html)
 
-## On Linux
+### On Linux
 You can increase the limits by running the following command as ```root```:
 
     sysctl -w vm.max_map_count=262144
-    
-## On Windows and Docker Toolbox
-    
-    docker-machine ssh default
-    sudo sysctl -w vm.max_map_count=262144
 
-To set this value permanently, update the ```vm.max_map_count``` setting in ```/etc/sysctl.conf```. To verify after ```rebooting```, run:
+To set this value permanently, update the ```vm.max_map_count=262144``` setting in ```/etc/sysctl.conf```. To verify after ```rebooting```, run:
 
     sysctl vm.max_map_count
 
-# Build and run
+### On Windows and Docker Toolbox
+    
+    docker-machine ssh default
+    sudo sysctl -w vm.max_map_count=262144
+    
+    # or in one commend
+    docker-machine ssh default "sudo sysctl -w vm.max_map_count=262144"
+
+This setting on Docker Toolbox (boot2docker) will be reset after rebooting the Docker host. I'm still finding the soution. :(
+
+    
+## Build and run
    
     docker build -t "elk" .
     docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk elk
     
-## or just run
+### or just run
     
     docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk
 
