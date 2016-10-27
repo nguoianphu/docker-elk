@@ -2,7 +2,7 @@
 
 ELK (Elasticsearch Logstash Kibana) 5.x Docker image. Alpine OS 3.x.
 
-[![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=master)](https://travis-ci.org/nguoianphu/docker-elk) [![Image size](https://images.microbadger.com/badges/image/nguoianphu/docker-elk:master.svg)](https://microbadger.com/images/nguoianphu/docker-elk "Get your own image badge on microbadger.com")
+[![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=master)](https://travis-ci.org/nguoianphu/docker-elk) [![Image size](https://images.microbadger.com/badges/image/nguoianphu/docker-elk.svg)](https://microbadger.com/images/nguoianphu/docker-elk "Get your own image badge on microbadger.com")
 
 - Elasticsearch 5.0.0
 - Logstash 5.0.0
@@ -31,4 +31,4 @@ ports
     
 # Docker ELK 2.x
 
-Please checkout ```2``` branch at [![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=2)](https://github.com/nguoianphu/docker-elk/tree/2)
+Please checkout ```2``` branch at  [![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=2)](https://github.com/nguoianphu/docker-elk/tree/2)
