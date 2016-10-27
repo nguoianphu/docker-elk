@@ -24,6 +24,7 @@ To set this value permanently, update the ```vm.max_map_count=262144``` setting 
 
 ### On Windows and Docker Toolbox
     
+    # the default machine
     docker-machine ssh default
     sudo sysctl -w vm.max_map_count=262144
     
