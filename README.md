@@ -1,4 +1,4 @@
-# Docker ELK
+# Docker ELK 2.x
 
 ELK (Elasticsearch Logstash Kibana) docker image. Alpine OS.
 
@@ -16,7 +16,7 @@ ELK (Elasticsearch Logstash Kibana) docker image. Alpine OS.
     
 ## or just run
     
-    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk
+    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk:2
 
 ports
 
