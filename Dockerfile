@@ -19,9 +19,9 @@ FROM openjdk:8-jre-alpine
 MAINTAINER Tuan Vo <vohungtuan@gmail.com>
 # Reference Sebastien Pujadas http://pujadas.net
 
-ENV ES_VERSION 5.0.0-rc1
-ENV LOGSTASH_VERSION 5.0.0-rc1
-ENV KIBANA_VERSION 5.0.0-rc1
+ENV ES_VERSION 5.0.0
+ENV LOGSTASH_VERSION 5.0.0
+ENV KIBANA_VERSION 5.0.0
 
 ENV GOSU_VERSION 1.9
 ENV TINI_VERSION v0.10.0
