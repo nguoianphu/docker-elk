@@ -18,7 +18,7 @@ Note the option ```--privileged```
     
 ## or just run
     
-    docker run --privileged -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk
+    docker run --privileged -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk:5-dev
 
 ports
 
