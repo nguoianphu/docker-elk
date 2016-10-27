@@ -9,16 +9,32 @@ ELK (Elasticsearch Logstash Kibana) 5.x Docker image. Alpine OS 3.x.
 - Kibana 5.0.0
 - OS is Alpine 3.4 64bit
 
-# Build and run
 
-Note the option ```--privileged```
+# Docker host virtual memory
+[https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html](https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html)
+
+## On Linux
+You can increase the limits by running the following command as ```root```:
+
+    sysctl -w vm.max_map_count=262144
     
+## On Windows and Docker Toolbox
+    
+    docker-machine ssh default
+    sudo sysctl -w vm.max_map_count=262144
+
+To set this value permanently, update the ```vm.max_map_count``` setting in ```/etc/sysctl.conf```. To verify after ```rebooting```, run:
+
+    sysctl vm.max_map_count
+
+# Build and run
+   
     docker build -t "elk" .
-    docker run --privileged -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk elk
+    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk elk
     
 ## or just run
     
-    docker run --privileged -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk
+    docker run -d -p 9200:9200 -p 5601:5601 -p 5044:5044 --name my-elk nguoianphu/docker-elk
 
 ports
 
