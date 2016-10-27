@@ -14,7 +14,7 @@ if [[ "$1" == "" ]]; then
 	# export ES_JAVA_OPTS="-Xms2g -Xmx2g"
 	# In ES 5.x, as soon as you configure a network setting like network.host, Elasticsearch assumes that you are moving to production and will upgrade the above warnings to exceptions.  
 	# https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html
-	sysctl -w vm.max_map_count=262144
+	# sysctl -w vm.max_map_count=262144
     # exec gosu elk elasticsearch -Edefault.network.host=0.0.0.0 &
     # exec gosu elk elasticsearch -Ees.network.host=0.0.0.0 &
     # exec gosu elk elasticsearch -d -p /opt/elasticsearch/elasticsearch.pid -Edefault.network.host=0.0.0.0 &
