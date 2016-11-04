@@ -30,10 +30,12 @@ To set this value permanently, update the ```vm.max_map_count=262144``` setting 
     # it will be re-set after you re-boot your Windows host
     
     # To make the setting persistent
-    sudo vi /var/lib/boot2docker/profile
+    sudo vi /var/lib/boot2docker/bootlocal.sh
     # Add this line into the profile file
     sysctl -w vm.max_map_count=262144
+    
     # Then re-start the Docker VM to check
+    sudo chmod +x /var/lib/boot2docker/bootlocal.sh
     exit
     docker-machine restart
     docker-machine ssh default "sysctl vm.max_map_count" 
