@@ -4,9 +4,9 @@ ELK (Elasticsearch Logstash Kibana) 5.x Docker image. Alpine OS 3.x.
 
 [![Build Status](https://travis-ci.org/nguoianphu/docker-elk.svg?branch=master)](https://travis-ci.org/nguoianphu/docker-elk) [![Image size](https://images.microbadger.com/badges/image/nguoianphu/docker-elk.svg)](https://microbadger.com/images/nguoianphu/docker-elk "Get your own image badge on microbadger.com")
 
-- Elasticsearch 5.0.0
-- Logstash 5.0.0
-- Kibana 5.0.0
+- Elasticsearch 5.0.1
+- Logstash 5.0.1
+- Kibana 5.0.1
 - OS is Alpine 3.4 64bit
 
 
