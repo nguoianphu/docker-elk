@@ -24,7 +24,7 @@ To set this value permanently, update the ```vm.max_map_count=262144``` setting 
 
 ### On Windows and Docker Toolbox (boot2docker)
     
-    # the default machine
+    # The default machine
     docker-machine ssh default
     sudo sysctl -w vm.max_map_count=262144
     # it will be re-set after you re-boot your Windows host
@@ -38,7 +38,13 @@ To set this value permanently, update the ```vm.max_map_count=262144``` setting 
     sudo chmod +x /var/lib/boot2docker/bootlocal.sh
     exit
     docker-machine restart
-    docker-machine ssh default "sysctl vm.max_map_count" 
+    docker-machine ssh default "sysctl vm.max_map_count"
+    
+    # You might have to increase "default machine"'s Base Memory to over 3GB
+    ## Open Oracle VM VirtualBox Manager
+    ## Choose the "default (docker 01)"
+    ## Setting > System > Motherboard > Base Memory
+    ## Inscrease it to 3072 MB or 4096 MB
 
     
 ## Build and run
@@ -56,6 +62,27 @@ ports
     # 9300 Elasticsearch TCP transport port
     # 5044 Logstash Beats interface, receives logs from Beats such as Filebeat, Packetbeat
     # 5601 Kibana web interface
+
+---
+
+
+## Docker-compose
+
+The docker-compose uses the official images from elastic.co.
+
+    docker-compose up
+
+ports
+
+    # 9200 Elasticsearch HTTP JSON interface
+    # 9300 Elasticsearch TCP transport port
+    # 5044 Logstash Beats interface, receives logs from Beats such as Filebeat, Packetbeat
+    # 5601 Kibana web interface
+    
+    
+X-Pack is preinstalled in this image. The default password for the ```elastic``` user is ```changeme```.
+    
+    https://www.elastic.co/guide/en/elasticsearch/reference/5.3/docker.html
 
 ---
     

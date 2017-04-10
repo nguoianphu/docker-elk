@@ -7,9 +7,9 @@ set -xe
 # Run as user "elk"
 if [[ "$1" == "" ]]; then
     echo "Starting elasticsearch 5.x"
-    echo "Have to run Docker with privileged mode, i.e:"
-    echo "docker run -it --privileged nguoianphu/docker-elk:5 /bin/bash"
-    echo "So that you can change the Alpine OS system configuration"
+    # echo "Have to run Docker with privileged mode, i.e:"
+    # echo "docker run -it --privileged nguoianphu/docker-elk /bin/bash"
+    # echo "So that you can change the Alpine OS system configuration"
 	# java -Xms40g -version
 	# export ES_JAVA_OPTS="-Xms2g -Xmx2g"
 	# In ES 5.x, as soon as you configure a network setting like network.host, Elasticsearch assumes that you are moving to production and will upgrade the above warnings to exceptions.  
