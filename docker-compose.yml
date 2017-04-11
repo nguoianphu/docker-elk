@@ -6,6 +6,26 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+    # volumes:
+      # - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    environment:
+      # - cluster.name=docker-cluster
+      # - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    # deploy:
+      # resources:
+        # limits:
+          # memory: 1g
+    cap_add:
+      - IPC_LOCK
     networks:
       - docker_elk
   logstash:
@@ -13,8 +33,9 @@ services:
     image: docker.elastic.co/logstash/logstash:5.3.0
     ports:
       - "5044:5044"
-    # links:
-      # - elasticsearch
+    volumes:
+      - ./logstash2.conf:/usr/share/logstash/pipeline/logstash.conf
+      # - ./logstash.yml:/usr/share/logstash/config/logstash.yml
     networks:
       - docker_elk
   kibana:
@@ -22,8 +43,12 @@ services:
     image: docker.elastic.co/kibana/kibana:5.3.0
     ports:
       - "5601:5601"
-    # links:
-      # - elasticsearch
+    # volumes:
+      # - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+    environment:
+      - XPACK_SECURITY_ENABLED=false
+      # - ELASTICSEARCH_USER=elastic
+      # - ELASTICSEARCH_PASSWORD=changeme
     networks:
       - docker_elk
 networks:

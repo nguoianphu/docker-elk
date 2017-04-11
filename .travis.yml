@@ -19,6 +19,7 @@ script:
   - docker exec -it elk ps -ef
   - echo "Checking Elasticsearch"
   - curl http://localhost:9200/_nodes/process?pretty
+  - curl http://localhost:9200/_stats?pretty
   - curl http://localhost:9200/_cluster/health?pretty
   - curl http://localhost:9200/_search?pretty
   - echo "Checking Kibana"
@@ -36,6 +37,7 @@ script:
   - docker exec -it nguoianphu-elk ps -ef
   - echo "Checking Elasticsearch"
   - curl http://localhost:9200/_nodes/process?pretty
+  - curl http://localhost:9200/_stats?pretty
   - curl http://localhost:9200/_cluster/health?pretty
   - curl http://localhost:9200/_search?pretty
   - echo "Checking Kibana"
