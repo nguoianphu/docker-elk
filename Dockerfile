@@ -19,12 +19,12 @@ FROM openjdk:8-jre-alpine
 MAINTAINER Tuan Vo <vohungtuan@gmail.com>
 # Reference Sebastien Pujadas http://pujadas.net
 
-ENV ES_VERSION 5.3.0
-ENV LOGSTASH_VERSION 5.3.0
-ENV KIBANA_VERSION 5.3.0
+ENV ES_VERSION 5.5.2
+ENV LOGSTASH_VERSION 5.5.2
+ENV KIBANA_VERSION 5.5.2
 
-ENV GOSU_VERSION 1.9
-ENV TINI_VERSION v0.10.0
+ENV GOSU_VERSION 1.10
+ENV TINI_VERSION v0.16.1
 
 ####################################################
 ########               Java              ###########
@@ -71,7 +71,7 @@ RUN set -x \
 ####################################################
 
  # grab tini for signal processing and zombie killing
- # https://github.com/krallin/tini
+ # https://github.com/krallin/tini/releases
 
 # RUN set -x \
     # && apk add --no-cache --virtual .tini-deps \
